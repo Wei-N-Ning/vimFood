@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+set -e
+
+linkRCFile() {
+    local dest=${HOME}/.vimrc
+    local bak=${HOME}/.vimrc.bak
+    if [[ -f ${dest} ]]
+    then
+        if [[ ! -L ${dest} ]]
+        then
+            echo "backing up old .vimrc file to ${bak}"
+            cp ${dest} ${bak}
+            rm ${dest}
+        else
+            echo "deleting current .vimrc symbolic link"
+            rm ${dest}
+        fi
+    fi
+    ln -s $( dirname ${0} )/vimrc ${dest}
+}
+
+linkVimDirectory() {
+    local dest=${HOME}/.vim
+}
+
+linkRCFile
+linkVimDirectory
+
