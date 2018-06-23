@@ -1,0 +1,7 @@
+.idea
+.vscode
+.gdb_history
+*.swp
+*.pyc
+*~
+
