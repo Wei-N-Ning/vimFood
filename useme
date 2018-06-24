@@ -21,7 +21,7 @@ _deleteOrBackup() {
         if [[ ! -L ${aPath} ]]
         then
             echo "backing up old file or dir to ${bak}"
-            cp ${aPath} ${bak}
+            cp -r ${aPath} ${bak}
         else
             echo "deleting current symbolic link"
         fi
