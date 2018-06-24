@@ -11,3 +11,9 @@ set copyindent
 
 " gnu make file
 autocmd FileType make set noexpandtab shiftwidth=8 softtabstop=0
+
+" pathogen
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
+

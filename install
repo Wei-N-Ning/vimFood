@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+tmpdir=${1:-"/tmp/iddqdidkfa"}
+vimdir=${tmpdir}/vimdir
+bundledir=${vimdir}/bundle
+
+setUp() {
+    set -e 
+    rm -rf ${tmpdir}
+    mkdir -p ${vimdir}
+    mkdir -p ${bundledir}
+}
+
+download() {
+    git clone http://github.com/tpope/vim-pathogen --depth=1 ${tmpdir}/pathogen
+    rm -rf ${tmpdir}/pathogen/.git
+    cp -r ${tmpdir}/pathogen/autoload ${vimdir}/
+    
+    git clone http://github.com/tpope/vim-sensible.git --depth=1 ${tmpdir}/vim-sensible
+    rm -rf ${tmpdir}/vim-sensible/.git
+    cp -r ${tmpdir}/vim-sensible ${bundledir}
+}
+
+install() {
+    local dest=${HOME}/.vim
+    rm -rf ${dest}
+    cp -r ${vimdir} ${dest}
+    cp -f ./vimrc ${HOME}/.vimrc
+}
+
+setUp
+download
+install
+
