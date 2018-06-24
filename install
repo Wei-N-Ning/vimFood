@@ -30,5 +30,12 @@ install() {
 
 setUp
 download
-install
+if [[ "$#" == "0" ]]
+then
+    install
+else
+    echo "==============================="
+    echo "download only; install manually"
+    echo "==============================="
+fi
 
