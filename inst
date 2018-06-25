@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-tmpdir=${1:-"/tmp/iddqdidkfa"}
+tmpdir="/tmp/iddqdidkfa"
 vimdir=${tmpdir}/vimdir
 bundledir=${vimdir}/bundle
 
@@ -40,6 +40,7 @@ if [[ "$1" == "download" ]]
 then
     echo "==============================="
     echo "download only; install manually"
+    echo ${vimdir}
     echo "==============================="
     download
     exit 0
