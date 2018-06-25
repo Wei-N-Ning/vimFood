@@ -1,5 +1,8 @@
 " general visibility
 set number
+highlight ColorColumn ctermbg=8
+let &colorcolumn="72,101"
+" alternatively: let &colorcolumn=join(range(72,101),",")
 
 " indentation
 set tabstop=4
