@@ -21,21 +21,37 @@ download() {
     cp -r ${tmpdir}/vim-sensible ${bundledir}
 }
 
-install() {
+install_vimdir() {
     local dest=${HOME}/.vim
     rm -rf ${dest}
     cp -r ${vimdir} ${dest}
+}
+
+install_vimrc() {
     cp -f ./vimrc ${HOME}/.vimrc
 }
 
+install() {
+    install_vimdir && install_vimrc
+}
+
 setUp
-download
-if [[ "$#" == "0" ]]
+if [[ "$1" == "download" ]]
 then
-    install
-else
     echo "==============================="
     echo "download only; install manually"
     echo "==============================="
+    download
+    exit 0
 fi
+if [[ "$1" == "rc"  ]]
+then
+    echo "=========="
+    echo "copy vimrc"
+    echo "=========="
+    install_vimrc
+    exit 0
+fi
+
+install
 
