@@ -53,6 +53,6 @@ then
     install_vimrc
     exit 0
 fi
+download && install
 
-install
 
