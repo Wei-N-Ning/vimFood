@@ -3,6 +3,7 @@
 tmpdir="/tmp/iddqdidkfa"
 vimdir=${tmpdir}/vimdir
 bundledir=${vimdir}/bundle
+colordir=${vimdir}/colors
 
 setUp() {
     set -e 
@@ -19,13 +20,19 @@ download() {
     git clone http://github.com/tpope/vim-sensible.git --depth=1 ${tmpdir}/vim-sensible
     rm -rf ${tmpdir}/vim-sensible/.git
     cp -r ${tmpdir}/vim-sensible ${bundledir}
+
+    # color
+    git clone https://github.com/mhartington/oceanic-next --depth=1 ${tmpdir}/_oceanic-next
+    cp -r ${tmpdir}/_oceanic-next/colors/* ${colordir}/
 }
 
 install_vimdir() {
     local dest_vim=${HOME}/.vim
     rm -rf ${dest_vim}
     mkdir -p ${dest_vim}
-    cp -r ${vimdir} ${dest_vim}
+    cp -r ${vimdir}/* ${dest_vim}
+
+    cp -r ${colordir} ${dest_vim}/
 
     local dest_neo=${HOME}/.config/nvim
     if [[ ! -d ${dest_neo} ]]
@@ -35,7 +42,8 @@ install_vimdir() {
 
     rm -rf ${dest_neo}
     mkdir -p ${dest_neo}
-    cp -r ${vimdir} ${dest_neo}
+    cp -r ${vimdir}/* ${dest_neo}
+    cp -r ${colordir} ${dest_neo}/
 }
 
 install_vimrc() {
@@ -52,13 +60,13 @@ install() {
     install_vimdir && install_vimrc
 }
 
+setUp
 if [[ "$1" == "download" ]]
 then
     echo "==============================="
     echo "download only; install manually"
     echo ${vimdir}
     echo "==============================="
-    setUp
     download
     exit 0
 fi
