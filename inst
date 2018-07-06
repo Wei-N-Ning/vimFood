@@ -22,33 +22,50 @@ download() {
 }
 
 install_vimdir() {
-    local dest=${HOME}/.vim
-    rm -rf ${dest}
-    cp -r ${vimdir} ${dest}
+    local dest_vim=${HOME}/.vim
+    rm -rf ${dest_vim}
+    mkdir -p ${dest_vim}
+    cp -r ${vimdir} ${dest_vim}
+
+    local dest_neo=${HOME}/.config/nvim
+    if [[ ! -d ${dest_neo} ]]
+    then
+        return
+    fi
+
+    rm -rf ${dest_neo}
+    mkdir -p ${dest_neo}
+    cp -r ${vimdir} ${dest_neo}
 }
 
 install_vimrc() {
     cp -f ./vimrc ${HOME}/.vimrc
+    
+    local neorcdir=${HOME}/.config/nvim
+    if [[ -d ${neorcdir} ]]
+    then
+        cp -f ./vimrc ${HOME}/.config/nvim/init.vim
+    fi
 }
 
 install() {
     install_vimdir && install_vimrc
 }
 
-setUp
 if [[ "$1" == "download" ]]
 then
     echo "==============================="
     echo "download only; install manually"
     echo ${vimdir}
     echo "==============================="
+    setUp
     download
     exit 0
 fi
 if [[ "$1" == "rc"  ]]
 then
     echo "=========="
-    echo "copy vimrc"
+    echo "copy vimrc (neo/vim)"
     echo "=========="
     install_vimrc
     exit 0
