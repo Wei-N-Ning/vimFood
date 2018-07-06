@@ -15,24 +15,24 @@ setUp() {
 download() {
     git clone http://github.com/tpope/vim-pathogen --depth=1 ${tmpdir}/pathogen
     rm -rf ${tmpdir}/pathogen/.git
-    cp -r ${tmpdir}/pathogen/autoload ${vimdir}/
+    cp -R ${tmpdir}/pathogen/autoload ${vimdir}/
     
     git clone http://github.com/tpope/vim-sensible.git --depth=1 ${tmpdir}/vim-sensible
     rm -rf ${tmpdir}/vim-sensible/.git
-    cp -r ${tmpdir}/vim-sensible ${bundledir}
+    cp -R ${tmpdir}/vim-sensible ${bundledir}
 
     # color
     git clone https://github.com/mhartington/oceanic-next --depth=1 ${tmpdir}/_oceanic-next
-    cp -r ${tmpdir}/_oceanic-next/colors/* ${colordir}/
+    cp -R ${tmpdir}/_oceanic-next/colors/* ${colordir}/
 }
 
 install_vimdir() {
     local dest_vim=${HOME}/.vim
     rm -rf ${dest_vim}
     mkdir -p ${dest_vim}
-    cp -r ${vimdir}/* ${dest_vim}
+    cp -R ${vimdir}/* ${dest_vim}
 
-    cp -r ${colordir} ${dest_vim}/
+    cp -R ${colordir} ${dest_vim}/
 
     local dest_neo=${HOME}/.config/nvim
     if [[ ! -d ${dest_neo} ]]
@@ -42,8 +42,8 @@ install_vimdir() {
 
     rm -rf ${dest_neo}
     mkdir -p ${dest_neo}
-    cp -r ${vimdir}/* ${dest_neo}
-    cp -r ${colordir} ${dest_neo}/
+    cp -R ${vimdir}/* ${dest_neo}
+    cp -R ${colordir} ${dest_neo}/
 }
 
 install_vimrc() {
