@@ -13,16 +13,16 @@ setUp() {
 }
 
 download() {
-    git clone http://github.com/tpope/vim-pathogen --depth=1 ${tmpdir}/pathogen
+    git clone http://github.com/tpope/vim-pathogen --depth=1 ${tmpdir}/pathogen >/dev/null
     rm -rf ${tmpdir}/pathogen/.git
     cp -R ${tmpdir}/pathogen/autoload ${vimdir}/
     
-    git clone http://github.com/tpope/vim-sensible.git --depth=1 ${tmpdir}/vim-sensible
+    git clone http://github.com/tpope/vim-sensible.git --depth=1 ${tmpdir}/vim-sensible >/dev/null
     rm -rf ${tmpdir}/vim-sensible/.git
     cp -R ${tmpdir}/vim-sensible ${bundledir}
 
     # color
-    git clone https://github.com/mhartington/oceanic-next --depth=1 ${tmpdir}/_oceanic-next
+    git clone https://github.com/mhartington/oceanic-next --depth=1 ${tmpdir}/_oceanic-next >/dev/null
     cp -R ${tmpdir}/_oceanic-next/colors/* ${colordir}/
 }
 
@@ -47,12 +47,12 @@ install_vimdir() {
 }
 
 install_vimrc() {
-    cp -f ./vimrc ${HOME}/.vimrc
+    cp -R ./vimrc ${HOME}/.vimrc
     
     local neorcdir=${HOME}/.config/nvim
     if [[ -d ${neorcdir} ]]
     then
-        cp -f ./vimrc ${HOME}/.config/nvim/init.vim
+        cp -R ./vimrc ${HOME}/.config/nvim/init.vim
     fi
 }
 
