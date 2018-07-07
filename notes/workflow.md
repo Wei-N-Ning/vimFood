@@ -22,3 +22,18 @@ insert mode
 
 note: a useful time saver
 
+#### efficient copy/cut & paste
+
+read this: https://stackoverflow.com/questions/13447066/vi-editor-copy-a-block-not-usual-action
+
+I found this useful too:
+
+in insert mode, `<C + o>` to enter command mode, then v to select the 
+texts, d or y to cut or copy; after this if I move the cursor I will 
+get back to insert mode; `<C + o>` again to enter command mode, press 
+p to paste after (or P to paste before) the cursor
+
+On macbook using `terminal` I can use `<command + c> <command + p>` to 
+copy/paste text into and out of vim. I can use it in combination with 
+Vim's copy buffer. The most common use case is to copy directory paths 
+into a text or source file in vim.
