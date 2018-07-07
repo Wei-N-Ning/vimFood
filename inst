@@ -1,66 +1,116 @@
 #!/usr/bin/env bash
 
+# temporary files, repos
 tmpdir="/tmp/iddqdidkfa"
+
+# to be moved to .vim or nvim depending on vim type
 vimdir=${tmpdir}/vimdir
+
+# plugins
 bundledir=${vimdir}/bundle
+
+# color schemes.
+# the layout of color schemes directory is:
+# colors/
+#        something.vim
+#        otherthing.vim
 colordir=${vimdir}/colors
 
 setUp() {
     set -e 
     rm -rf ${tmpdir}
     mkdir -p ${vimdir}
-    mkdir -p ${bundledir}
+    mkdir ${bundledir}
+    mkdir ${colordir}
+}
+
+# set global variable: vimtype
+vimtype=
+vim_type() {
+    vimtype=$( vim --version | perl -ne \
+        '/(\w*VIM)\s/ and print $1; exit 0' )
+    if [[ "${vimtype}" == "" ]]
+    then
+        echo "Can not identify the type of vim. Abort."
+        exit 1
+    fi
+}
+vim_type
+
+# $1: git repo url
+# $2: destination directory
+download_one() {
+    local url=${1:?"missing git repo url"}
+    local dest=${2:?"missing target directory"}
+    echo "downloading from ${url}"
+    git clone ${url} --depth=1 ${dest} >/dev/null 2>&1 &&
+    rm -rf ${dest}/.git
+    if [[ $? != 0 ]]
+    then
+        echo "fail to download to ${dest}"
+        exit 1
+    fi
 }
 
 download() {
-    git clone http://github.com/tpope/vim-pathogen --depth=1 ${tmpdir}/pathogen >/dev/null
-    rm -rf ${tmpdir}/pathogen/.git
-    cp -R ${tmpdir}/pathogen/autoload ${vimdir}/
-    
-    git clone http://github.com/tpope/vim-sensible.git --depth=1 ${tmpdir}/vim-sensible >/dev/null
-    rm -rf ${tmpdir}/vim-sensible/.git
-    cp -R ${tmpdir}/vim-sensible ${bundledir}
+    download_one \
+        http://github.com/tpope/vim-pathogen \
+        ${tmpdir}/pathogen
+    mv ${tmpdir}/pathogen/autoload ${vimdir}/
 
-    # color
-    git clone https://github.com/mhartington/oceanic-next --depth=1 ${tmpdir}/_oceanic-next >/dev/null
-    cp -R ${tmpdir}/_oceanic-next/colors/* ${colordir}/
+    download_one \
+        http://github.com/tpope/vim-sensible.git \
+        ${tmpdir}/vim-sensible
+    mv ${tmpdir}/vim-sensible ${bundledir}/
+
+    download_one \
+        https://github.com/mhartington/oceanic-next \
+        ${tmpdir}/_oceanic-next
+    mv ${tmpdir}/_oceanic-next/colors/* ${colordir}/
 }
 
 install_vimdir() {
-    local dest_vim=${HOME}/.vim
-    rm -rf ${dest_vim}
-    mkdir -p ${dest_vim}
-    cp -R ${vimdir}/* ${dest_vim}
+    local dest=${HOME}/.vim
+    [[ ! -d ${dest} ]] && mkdir -p ${dest}
+    cp -R ${vimdir}/* ${dest}
+}
 
-    cp -R ${colordir} ${dest_vim}/
-
-    local dest_neo=${HOME}/.config/nvim
-    if [[ ! -d ${dest_neo} ]]
-    then
-        return
-    fi
-
-    rm -rf ${dest_neo}
-    mkdir -p ${dest_neo}
-    cp -R ${vimdir}/* ${dest_neo}
-    cp -R ${colordir} ${dest_neo}/
+install_vimdir_neo() {
+    local dest=${HOME}/.config/nvim
+    [[ ! -d ${dest} ]] && mkdir -p ${dest}
+    cp -R ${vimdir}/* ${dest}
 }
 
 install_vimrc() {
-    cp -R ./vimrc ${HOME}/.vimrc
-    
-    local neorcdir=${HOME}/.config/nvim
-    if [[ -d ${neorcdir} ]]
-    then
-        cp -R ./vimrc ${HOME}/.config/nvim/init.vim
-    fi
+    cp ./vimrc ${HOME}/.vimrc
+}
+
+install_vimrc_neo() {
+    local dest=${HOME}/.config/nvim
+    [[ -d ${dest} ]] && mkdir -p ${dest}
+    cp ./vimrc ${HOME}/.config/nvim/init.vim
 }
 
 install() {
-    install_vimdir && install_vimrc
+    if [[ "${vimtype}" == "NVIM" ]]
+    then
+        install_vimdir_neo
+    else
+        install_vimdir
+    fi
+}
+
+install_rc() {
+    if [[ "${vimtype}" == "NVIM" ]]
+    then
+        install_vimrc_neo
+    else
+        install_vimrc
+    fi
 }
 
 setUp
+echo "vim is ${vimtype}"
 if [[ "$1" == "download" ]]
 then
     echo "==============================="
@@ -75,9 +125,7 @@ then
     echo "=========="
     echo "copy vimrc (neo/vim)"
     echo "=========="
-    install_vimrc
+    install_rc
     exit 0
 fi
-download && install
-
-
+download && install && install_rc

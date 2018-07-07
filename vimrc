@@ -20,9 +20,9 @@ set copyindent
 autocmd FileType make set noexpandtab shiftwidth=4 softtabstop=0
 
 " pathogen
-" execute pathogen#infect()
-" syntax on
-" filetype plugin indent on
+execute pathogen#infect()
+syntax on
+filetype plugin indent on
 
 " source: vim tip (vim.wikia.com)
 :nnoremap <CR> G
