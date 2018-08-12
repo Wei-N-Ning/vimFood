@@ -37,3 +37,19 @@ On macbook using `terminal` I can use `<command + c> <command + p>` to
 copy/paste text into and out of vim. I can use it in combination with 
 Vim's copy buffer. The most common use case is to copy directory paths 
 into a text or source file in vim.
+
+#### copy/paste between two vim instances
+
+source: https://stackoverflow.com/questions/4620672/copy-and-paste-content-from-one-file-to-another-file-in-vi
+
+```
+"*dd -- cut a line (or 3dd to cut 3 lines)
+
+"*yy -- copy a line (or 3yy to copy 3 lines)
+
+"*p -- paste line(s) on line after the cursor
+
+"*P -- paste line(s) on line before the cursor
+```
+
+
