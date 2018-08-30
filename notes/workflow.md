@@ -52,4 +52,17 @@ source: https://stackoverflow.com/questions/4620672/copy-and-paste-content-from-
 "*P -- paste line(s) on line before the cursor
 ```
 
+go back to the last edit
+```
+`.
+```
+
+go to the end of the file `}`; beginning `{`
+
+go to next/prev paragraph `[`, `]`
+
+press `ctrl - N` to toggle line number view on/off
+```
+map <C-N> :set invnumber <bar> set invrelativenumber<CR>
+```
 
