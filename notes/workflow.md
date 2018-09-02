@@ -66,3 +66,15 @@ press `ctrl - N` to toggle line number view on/off
 map <C-N> :set invnumber <bar> set invrelativenumber<CR>
 ```
 
+#### paste formatted text into vim (turn off auto-ident)
+
+turn on paste mode
+`:set paste`
+
+turn off paste mode
+`:set nopaste`
+
+short cut:
+`set pastetoggle=<F3>`
+
+
