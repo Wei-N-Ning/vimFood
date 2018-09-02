@@ -68,6 +68,9 @@ map <C-N> :set invnumber <bar> set invrelativenumber<CR>
 
 #### paste formatted text into vim (turn off auto-ident)
 
+source:
+https://stackoverflow.com/questions/2514445/turning-off-auto-indent-when-pasting-text-into-vim
+
 turn on paste mode
 `:set paste`
 
