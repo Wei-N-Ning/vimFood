@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# ///////////////////////
+#
+# https://vimawesome.com/
+#
+# ///////////////////////
+
+
 # temporary files, repos
 tmpdir="/tmp/iddqdidkfa"
 
@@ -67,6 +74,18 @@ download() {
         https://github.com/mhartington/oceanic-next \
         ${tmpdir}/_oceanic-next
     mv ${tmpdir}/_oceanic-next/colors/* ${colordir}/
+
+    # polyglot support
+    download_one \
+        https://github.com/sheerun/vim-polyglot \
+        ${tmpdir}/vim-polyglot
+    mv ${tmpdir}/vim-polyglot ${bundledir}
+
+    # status line
+    download_one \
+        https://github.com/vim-airline/vim-airline \
+        ${tmpdir}/vim-airline
+    mv ${tmpdir}/vim-airline ${bundledir}
 }
 
 install_vimdir() {
