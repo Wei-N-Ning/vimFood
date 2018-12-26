@@ -67,6 +67,12 @@ download() {
         https://github.com/mhartington/oceanic-next \
         ${tmpdir}/_oceanic-next
     mv ${tmpdir}/_oceanic-next/colors/* ${colordir}/
+
+    # terraform support
+    download_one \
+        https://github.com/hashivim/vim-terraform \
+        ${tmpdir}/vim-terraform
+    mv ${tmpdir}/vim-terraform ${bundledir}
 }
 
 install_vimdir() {
