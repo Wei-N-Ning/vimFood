@@ -68,11 +68,17 @@ download() {
         ${tmpdir}/_oceanic-next
     mv ${tmpdir}/_oceanic-next/colors/* ${colordir}/
 
-    # terraform support
+    # polyglot support
     download_one \
-        https://github.com/hashivim/vim-terraform \
-        ${tmpdir}/vim-terraform
-    mv ${tmpdir}/vim-terraform ${bundledir}
+        https://github.com/sheerun/vim-polyglot \
+        ${tmpdir}/vim-polyglot
+    mv ${tmpdir}/vim-polyglot ${bundledir}
+
+    # status line
+    download_one \
+        https://github.com/vim-airline/vim-airline \
+        ${tmpdir}/vim-airline
+    mv ${tmpdir}/vim-airline ${bundledir}
 }
 
 install_vimdir() {
