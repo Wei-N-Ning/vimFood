@@ -19,9 +19,6 @@ set copyindent
 " gnu make file
 autocmd FileType make set noexpandtab shiftwidth=4 softtabstop=0
 
-" terraform .tf file
-autocmd FileType tf set shiftwidth=2 tabstop=2 autoindent copyindent
-
 " pathogen
 execute pathogen#infect()
 syntax on
