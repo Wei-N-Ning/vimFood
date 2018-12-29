@@ -6,6 +6,7 @@
 #
 # ///////////////////////
 
+thisdir=$( dirname ${BASH_SOURCE[0]} )
 
 # temporary files, repos
 tmpdir="/tmp/iddqdidkfa"
@@ -23,7 +24,7 @@ bundledir=${vimdir}/bundle
 #        otherthing.vim
 colordir=${vimdir}/colors
 
-setUp() {
+setUp() 0{
     set -e 
     rm -rf ${tmpdir}
     mkdir -p ${vimdir}
@@ -101,13 +102,13 @@ install_vimdir_neo() {
 }
 
 install_vimrc() {
-    cp -f ./vimrc ${HOME}
+    cp -f ${thisdir}/vimrc ${HOME}
 }
 
 install_vimrc_neo() {
     local dest=${HOME}/.config/nvim
     [[ -d ${dest} ]] && mkdir -p ${dest}
-    cp ./vimrc ${HOME}/.config/nvim/init.vim
+    cp ${thisdir}/vimrc ${HOME}/.config/nvim/init.vim
 }
 
 install() {
