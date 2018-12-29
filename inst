@@ -24,7 +24,7 @@ bundledir=${vimdir}/bundle
 #        otherthing.vim
 colordir=${vimdir}/colors
 
-setUp() 0{
+setUp() {
     set -e 
     rm -rf ${tmpdir}
     mkdir -p ${vimdir}
