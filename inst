@@ -102,7 +102,7 @@ install_vimdir_neo() {
 }
 
 install_vimrc() {
-    cp -f ${thisdir}/vimrc ${HOME}
+    cp -f ${thisdir}/vimrc ${HOME}/.vimrc
 }
 
 install_vimrc_neo() {
