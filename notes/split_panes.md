@@ -3,6 +3,6 @@
 
 `:split <filename>`
 
-ctrl + <- or -> to switch pane
+ctrl + w then <- or -> to switch pane
 
 `:q` to close pane
