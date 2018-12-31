@@ -1,6 +1,14 @@
 
 quake-style terminal:
 
+to fully simuate quake's terminal (hide the default window):
+
+create a new profile called "hotkey window"; configure its fonts, colors 
+to my like; 
+
+in the default profile, make sure "hide when open" is ticked
+
+
 https://apple.stackexchange.com/questions/48796/iterm-as-a-slide-out-terminal-from-the-top-of-the-screen
 
 https://stackoverflow.com/questions/30850430/iterm2-hide-show-like-guake
